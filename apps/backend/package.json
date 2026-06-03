@@ -1,20 +1,27 @@
 {
   "name": "backend",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "check-types": "tsc --noEmit"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5",
-    "@repo/db":"*"
+    "@repo/db": "*"
   },
   "dependencies": {
+    "@repo/db": "*",
     "@supabase/supabase-js": "^2.106.2",
     "cors": "^2.8.6",
+    "drizzle-orm": "^0.45.2",
     "types": "^0.1.1",
-    "@repo/db":"*"
-
+    "uuidv4": "^6.2.13",
+    "zod": "^4.4.3"
   }
 }
