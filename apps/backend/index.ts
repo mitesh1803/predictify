@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from "cors"
 import { middleware } from './middleware';
+import * as db from "@repo/db"
 
 const app =express();
 
@@ -9,6 +10,7 @@ app.use(cors());
 
 app.post("/buy",middleware,(req,res)=>{
     res.json({message:"HI"})
+    
 })
 app.post("/sell",middleware,(req,res)=>{
 
