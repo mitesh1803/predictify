@@ -20,3 +20,8 @@ export const OnrampSchema = z.object({
 export const OfframpSchema = z.object({
   amount: z.number(), // amount in USD (e.g., 100.50)
 });
+export const createMarketSchema = z.object({
+  title: z.string().min(5, "Title must be at least 5 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  resolutionDescription: z.string().min(5, "Resolution description required"),
+});
