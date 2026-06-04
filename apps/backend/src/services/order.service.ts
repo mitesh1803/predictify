@@ -5,66 +5,77 @@ import { uuid } from "uuidv4";
 
 export class OrderService {
   static async getOrderHistory(userId: string) {
+    // userId is a wallet address — join through users to find matching rows
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.address, userId))
+      .limit(1);
+
+    if (!user) return [];
+
     const history = await db
       .select()
       .from(orderHistory)
-      .where(eq(orderHistory.userId, userId));
+      .where(eq(orderHistory.userId, user.id));
     return history;
   }
 
   static async split(userId: string, marketId: string, amount: number) {
     await db.transaction(async (tx) => {
-      // Drizzle FOR UPDATE lock
+      // userId is wallet address — query by address
       const [user] = await tx
         .select()
         .from(users)
-        .where(eq(users.id, userId))
+        .where(eq(users.address, userId))
         .for("update");
 
       if (!user) throw new Error("User not found");
 
-      if (user.usdBalance < amount) {
+      const amountInCents = Math.round(amount * 100);
+
+      if (user.usdBalance < amountInCents) {
         throw new Error("Insufficient USD balance for split");
       }
 
       await tx
         .update(users)
-        .set({ usdBalance: sql`${users.usdBalance} - ${amount}` })
-        .where(eq(users.id, userId));
+        .set({ usdBalance: sql`${users.usdBalance} - ${amountInCents}` })
+        .where(eq(users.address, userId));
 
-      // Upsert YES position
+      // Upsert YES position (use internal user.id for FK)
       await tx
         .insert(positions)
         .values({
-          userId,
+          userId: user.id,
           marketId,
           type: "Yes",
-          qty: amount,
+          qty: amountInCents,
         })
         .onConflictDoUpdate({
           target: [positions.userId, positions.marketId, positions.type],
-          set: { qty: sql`${positions.qty} + ${amount}` },
+          set: { qty: sql`${positions.qty} + ${amountInCents}` },
         });
 
       // Upsert NO position
       await tx
         .insert(positions)
         .values({
-          userId,
+          userId: user.id,
           marketId,
           type: "No",
-          qty: amount,
+          qty: amountInCents,
         })
         .onConflictDoUpdate({
           target: [positions.userId, positions.marketId, positions.type],
-          set: { qty: sql`${positions.qty} + ${amount}` },
+          set: { qty: sql`${positions.qty} + ${amountInCents}` },
         });
 
       await tx.insert(orderHistory).values({
         orderType: "Split",
-        userId,
+        userId: user.id,
         price: 0,
-        qty: amount,
+        qty: amountInCents,
         marketId,
       });
     });
@@ -72,12 +83,23 @@ export class OrderService {
 
   static async merge(userId: string, marketId: string, amount: number) {
     await db.transaction(async (tx) => {
+      // userId is wallet address — resolve to internal user first
+      const [user] = await tx
+        .select()
+        .from(users)
+        .where(eq(users.address, userId))
+        .for("update");
+
+      if (!user) throw new Error("User not found");
+
+      const amountInCents = Math.round(amount * 100);
+
       const [yesPos] = await tx
         .select()
         .from(positions)
         .where(
           and(
-            eq(positions.userId, userId),
+            eq(positions.userId, user.id),
             eq(positions.marketId, marketId),
             eq(positions.type, "Yes"),
           ),
@@ -89,26 +111,26 @@ export class OrderService {
         .from(positions)
         .where(
           and(
-            eq(positions.userId, userId),
+            eq(positions.userId, user.id),
             eq(positions.marketId, marketId),
             eq(positions.type, "No"),
           ),
         )
         .limit(1);
 
-      if (!yesPos || yesPos.qty < amount) {
+      if (!yesPos || yesPos.qty < amountInCents) {
         throw new Error("Insufficient Yes position");
       }
-      if (!noPos || noPos.qty < amount) {
+      if (!noPos || noPos.qty < amountInCents) {
         throw new Error("Insufficient No position");
       }
 
       await tx
         .update(positions)
-        .set({ qty: sql`${positions.qty} - ${amount}` })
+        .set({ qty: sql`${positions.qty} - ${amountInCents}` })
         .where(
           and(
-            eq(positions.userId, userId),
+            eq(positions.userId, user.id),
             eq(positions.marketId, marketId),
             eq(positions.type, "Yes"),
           ),
@@ -116,10 +138,10 @@ export class OrderService {
 
       await tx
         .update(positions)
-        .set({ qty: sql`${positions.qty} - ${amount}` })
+        .set({ qty: sql`${positions.qty} - ${amountInCents}` })
         .where(
           and(
-            eq(positions.userId, userId),
+            eq(positions.userId, user.id),
             eq(positions.marketId, marketId),
             eq(positions.type, "No"),
           ),
@@ -127,14 +149,14 @@ export class OrderService {
 
       await tx
         .update(users)
-        .set({ usdBalance: sql`${users.usdBalance} + ${amount}` })
-        .where(eq(users.id, userId));
+        .set({ usdBalance: sql`${users.usdBalance} + ${amountInCents}` })
+        .where(eq(users.address, userId));
 
       await tx.insert(orderHistory).values({
         orderType: "Merge",
-        userId,
+        userId: user.id,
         price: 0,
-        qty: amount,
+        qty: amountInCents,
         marketId,
       });
     });
@@ -151,7 +173,7 @@ export class OrderService {
     const originalOrderId = uuid();
 
     await db.transaction(async (tx) => {
-      // 1. Lock market row using Drizzle native forUpdate
+      // 1. Lock market row
       const [market] = await tx
         .select()
         .from(markets)
@@ -160,11 +182,11 @@ export class OrderService {
 
       if (!market) throw new Error("Market not found");
 
-      // 2. Lock user row using Drizzle native forUpdate
+      // 2. Lock user row — query by wallet address, not internal UUID
       const [user] = await tx
         .select()
         .from(users)
-        .where(eq(users.id, userId))
+        .where(eq(users.address, userId))
         .for("update");
 
       if (!user) throw new Error("User not found");
