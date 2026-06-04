@@ -6,7 +6,7 @@ export class WalletService {
     const user = await db
       .select()
       .from(users)
-      .where(eq(users.id, userId))
+      .where(eq(users.address, userId)) // userId is the wallet address
       .limit(1);
     return user[0]?.usdBalance;
   }
@@ -21,11 +21,11 @@ export class WalletService {
 
   static async onramp(userId: string, amount: number) {
     return await db.transaction(async (tx) => {
-      // Drizzle FOR UPDATE lock
+      // Drizzle FOR UPDATE lock — query by wallet address, not internal UUID
       const [user] = await tx
         .select()
         .from(users)
-        .where(eq(users.id, userId))
+        .where(eq(users.address, userId))
         .for("update");
 
       if (!user) throw new Error("User not found");
@@ -34,8 +34,8 @@ export class WalletService {
       await tx
         .update(users)
         .set({ usdBalance: sql`${users.usdBalance} + ${amountInCents}` })
-        .where(eq(users.id, userId));
-      
+        .where(eq(users.address, userId));
+
       return amount;
     });
   }
@@ -45,7 +45,7 @@ export class WalletService {
       const [user] = await tx
         .select()
         .from(users)
-        .where(eq(users.id, userId))
+        .where(eq(users.address, userId))
         .for("update");
 
       if (!user) throw new Error("User not found");
@@ -58,8 +58,8 @@ export class WalletService {
       await tx
         .update(users)
         .set({ usdBalance: sql`${users.usdBalance} - ${amountInCents}` })
-        .where(eq(users.id, userId));
-      
+        .where(eq(users.address, userId));
+
       return amount;
     });
   }

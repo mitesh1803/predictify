@@ -4,8 +4,8 @@ import { OrderService } from "../services/order.service";
 
 const router = Router();
 
-// ─── POST /history ────────────────────────────────────────────────────────────
-router.post("/history", middleware, async (req, res) => {
+// ─── GET /history ────────────────────────────────────────────────────────────
+router.get("/history", middleware, async (req, res) => {
   if (!req.userId) {
     return res.status(401).json({
       message: "Unauthorized",

@@ -11,7 +11,7 @@ import {
 import { relations } from "drizzle-orm";
 
 
-export const orderTypeEnum = pgEnum("order_type", ["Buy", "Sell", "Split", "Merge"]);
+export const orderTypeEnum = pgEnum("order_type", ["Buy", "Sell", "Split", "Merge", "Onramp", "Offramp"]);
 export const positionTypeEnum = pgEnum("position_type", ["Yes", "No"]);
 
 

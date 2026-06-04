@@ -115,6 +115,13 @@ function App() {
   const [showRampModal, setShowRampModal] = useState<"onramp" | "offramp" | null>(null);
   const [rampAmount, setRampAmount] = useState<string>("100");
 
+  // Create Market Modal
+  const [showCreateMarket, setShowCreateMarket] = useState(false);
+  const [newMarketTitle, setNewMarketTitle] = useState("");
+  const [newMarketDesc, setNewMarketDesc] = useState("");
+  const [newMarketResolution, setNewMarketResolution] = useState("");
+  const [createMarketLoading, setCreateMarketLoading] = useState(false);
+
   // Notifications
   const [notification, setNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
@@ -139,7 +146,7 @@ function App() {
         if (response.data && response.data.markets) {
           setBackendAvailable(true);
           // Default to live backend mode if it's available
-          setDemoMode(false);
+          
         }
       } catch (e) {
         setBackendAvailable(false);
@@ -167,14 +174,15 @@ function App() {
         const sessionRes = await supabase.auth.getSession();
         const token = sessionRes.data.session?.access_token;
         if (token) {
-          const authHeaders = { headers: { Authorization: token } };
+          const authHeaders = { headers: { Authorization: `Bearer ${token}` } };
           const balanceRes = await axios.get("http://localhost:3000/balance", authHeaders);
           setUsdBalance(balanceRes.data.balance || 0);
 
           const positionsRes = await axios.get("http://localhost:3000/positions", authHeaders);
           setPositionsList(positionsRes.data.positions || []);
 
-          const historyRes = await axios.post("http://localhost:3000/history", {}, authHeaders);
+          // GET /history — read operation, not POST
+          const historyRes = await axios.get("http://localhost:3000/history", authHeaders);
           setHistoryList(historyRes.data.history || []);
         } else {
           setUsdBalance(0);
@@ -328,6 +336,16 @@ function App() {
         chain: "solana",
         statement: "I confirm i want to signIN in prediction market",
       });
+      // Register the user in the DB (idempotent — safe to call on every login)
+      const sessionRes = await supabase.auth.getSession();
+      const token = sessionRes.data.session?.access_token;
+      if (token) {
+        await axios.post(
+          "http://localhost:3000/user/register",
+          {},
+          { headers: { Authorization: `Bearer ${token}` } }
+        ).catch(() => {}); // Ignore errors — user may already exist
+      }
     } catch (e: any) {
       showNotification("Solana Wallet Connection Failed", "error");
     }
@@ -360,7 +378,7 @@ function App() {
         await axios.post(
           `http://localhost:3000/${endpoint}`,
           { amount },
-          { headers: { Authorization: token } }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         showNotification(`${showRampModal === "onramp" ? "Deposited" : "Withdrawn"} ${formatUSD(amount * 100)} successfully!`, "success");
@@ -425,7 +443,7 @@ function App() {
         await axios.post(
           "http://localhost:3000/split",
           { marketId: activeMarket.id, amount },
-          { headers: { Authorization: token } }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         showNotification(`Successfully split ${amount} USD into position pairs`, "success");
@@ -510,7 +528,7 @@ function App() {
         await axios.post(
           "http://localhost:3000/merge",
           { marketId: activeMarket.id, amount },
-          { headers: { Authorization: token } }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         showNotification(`Successfully merged position pairs back into ${amount} USD`, "success");
@@ -598,7 +616,7 @@ function App() {
             price: orderPrice,
             qty: orderQty
           },
-          { headers: { Authorization: token } }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         showNotification("Order executed successfully!", "success");
@@ -875,6 +893,68 @@ function App() {
     return marketsList;
   }, [marketsList, marketCategory]);
 
+  // Create Market
+  const handleCreateMarket = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMarketTitle.trim() || !newMarketDesc.trim() || !newMarketResolution.trim()) {
+      showNotification("Please fill in all fields", "error");
+      return;
+    }
+
+    setCreateMarketLoading(true);
+    try {
+      if (!demoMode && backendAvailable) {
+        const sessionRes = await supabase.auth.getSession();
+        const token = sessionRes.data.session?.access_token;
+        if (!token) {
+          showNotification("You must be logged in to create a market", "error");
+          return;
+        }
+        const res = await axios.post(
+          "http://localhost:3000/markets",
+          {
+            title: newMarketTitle,
+            description: newMarketDesc,
+            resolutionDescription: newMarketResolution,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        await fetchData();
+        setSelectedMarketId(res.data.market.id);
+      } else {
+        // Demo mode: add locally
+        const slug = newMarketTitle
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .slice(0, 40);
+        const newMarket: Market = {
+          id: `${slug}-${Date.now()}`,
+          title: newMarketTitle,
+          description: newMarketDesc,
+          resolutionDescription: newMarketResolution,
+          yesOrderbook: {},
+          noOrderbook: {},
+          totalQty: 0,
+          resolution: null,
+        };
+        const updated = [newMarket, ...marketsList];
+        localStorage.setItem("demo_markets", JSON.stringify(updated));
+        setMarketsList(updated);
+        setSelectedMarketId(newMarket.id);
+      }
+
+      showNotification("Market created successfully!", "success");
+      setShowCreateMarket(false);
+      setNewMarketTitle("");
+      setNewMarketDesc("");
+      setNewMarketResolution("");
+    } catch (err: any) {
+      showNotification(err.response?.data?.message || "Error creating market", "error");
+    } finally {
+      setCreateMarketLoading(false);
+    }
+  };
+
   return (
     <div>
       {/* Notifications */}
@@ -942,7 +1022,25 @@ function App() {
           
           {/* Category Tabs & Markets list */}
           <div className="glass-panel" style={{ padding: "20px" }}>
-            <h2 className="section-title">Markets</h2>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
+              <h2 className="section-title" style={{ marginBottom: 0 }}>Markets</h2>
+              <button
+                id="create-market-btn"
+                className="btn-primary"
+                style={{
+                  padding: "8px 16px",
+                  fontSize: "0.85rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  borderRadius: "10px",
+                }}
+                onClick={() => setShowCreateMarket(true)}
+              >
+                <span style={{ fontSize: "1.1rem", lineHeight: 1 }}>＋</span>
+                Add Market
+              </button>
+            </div>
             <div className="market-tabs">
               {["All", "Crypto", "Science", "Tech"].map((cat) => (
                 <button
@@ -1399,6 +1497,98 @@ function App() {
                 style={{ width: "100%", padding: "12px", marginTop: "10px" }}
               >
                 Confirm {showRampModal === "onramp" ? "Deposit" : "Withdrawal"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Create Market Modal */}
+      {showCreateMarket && (
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowCreateMarket(false); }}>
+          <div className="glass-panel modal-content" style={{ maxWidth: "520px", width: "90%" }}>
+            <div className="modal-header">
+              <h2 style={{ fontSize: "1.2rem" }}>＋ Create New Market</h2>
+              <button className="modal-close" onClick={() => setShowCreateMarket(false)}>&times;</button>
+            </div>
+
+            <form onSubmit={handleCreateMarket}>
+              <div className="form-group" style={{ marginTop: "8px" }}>
+                <div className="form-label">Market Question</div>
+                <div className="form-input-container">
+                  <input
+                    id="new-market-title"
+                    type="text"
+                    className="form-input"
+                    placeholder="e.g. Will Bitcoin hit $200k by end of 2026?"
+                    value={newMarketTitle}
+                    onChange={(e) => setNewMarketTitle(e.target.value)}
+                    maxLength={200}
+                    required
+                    style={{ paddingRight: "12px" }}
+                  />
+                </div>
+                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", textAlign: "right" }}>
+                  {newMarketTitle.length}/200
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="form-label">Description</div>
+                <textarea
+                  id="new-market-desc"
+                  className="form-input"
+                  placeholder="Describe the exact conditions for YES resolution..."
+                  value={newMarketDesc}
+                  onChange={(e) => setNewMarketDesc(e.target.value)}
+                  rows={3}
+                  maxLength={1000}
+                  required
+                  style={{
+                    width: "100%",
+                    resize: "vertical",
+                    fontFamily: "inherit",
+                    lineHeight: "1.5",
+                    boxSizing: "border-box",
+                  }}
+                />
+                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", textAlign: "right" }}>
+                  {newMarketDesc.length}/1000
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="form-label">Resolution Source</div>
+                <div className="form-input-container">
+                  <input
+                    id="new-market-resolution"
+                    type="text"
+                    className="form-input"
+                    placeholder="e.g. Source: Coinbase close price on Dec 31, 2026."
+                    value={newMarketResolution}
+                    onChange={(e) => setNewMarketResolution(e.target.value)}
+                    maxLength={500}
+                    required
+                    style={{ paddingRight: "12px" }}
+                  />
+                </div>
+              </div>
+
+              <button
+                id="submit-create-market-btn"
+                type="submit"
+                className="btn-primary"
+                disabled={createMarketLoading}
+                style={{
+                  width: "100%",
+                  padding: "14px",
+                  marginTop: "8px",
+                  fontSize: "1rem",
+                  opacity: createMarketLoading ? 0.7 : 1,
+                  cursor: createMarketLoading ? "not-allowed" : "pointer",
+                }}
+              >
+                {createMarketLoading ? "Creating…" : "Create Market"}
               </button>
             </form>
           </div>

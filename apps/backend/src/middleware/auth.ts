@@ -11,7 +11,12 @@ export async function middleware(
   res: Response,
   next: NextFunction,
 ) {
-  const token = req.headers.authorization;
+  // Support both "Bearer <token>" and raw token formats
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.startsWith("Bearer ")
+    ? authHeader.slice(7)
+    : authHeader;
+
   try {
     const {
       data: { user },
@@ -19,6 +24,7 @@ export async function middleware(
     } = await supabase.auth.getUser(token);
     const address = user?.user_metadata?.custom_claims?.address;
     if (address) {
+      // Store wallet address — services must query by users.address, not users.id
       req.userId = address;
       next();
     } else {

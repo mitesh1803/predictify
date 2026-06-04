@@ -6,6 +6,6 @@ export default defineConfig({
   schema: './schema.ts',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.VITE_SUPABASE_URL!,
+    url: process.env.DATABASE_URL!,
   },
 });

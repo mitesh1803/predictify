@@ -37,7 +37,7 @@ router.post("/onramp", middleware, async (req, res) => {
 
   try {
     const amount = await WalletService.onramp(req.userId, data.amount);
-    res.json({ message: "Onramp successful", amount });
+    res.json({ message: "Successfully Added", amount });
   } catch (error) {
     res.status(500).json({ message: "Error processing onramp" });
   }

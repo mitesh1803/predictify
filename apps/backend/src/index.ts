@@ -5,6 +5,7 @@ import walletRouter from "./routes/wallet.routes";
 import orderRouter from "./routes/order.routes";
 import positionRouter from "./routes/position.routes";
 import historyRouter from "./routes/history.routes";
+import userRouter from "./routes/user.routes";
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.use(walletRouter);
 app.use(orderRouter);
 app.use(positionRouter);
 app.use(historyRouter);
+app.use(userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

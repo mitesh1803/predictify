@@ -124,8 +124,9 @@ export class MatchingEngineService {
       }
 
       let leftQty = qty;
+      // Sort descending: sellers should match against the BEST (highest) bids first
       const prices = Object.keys(noOrderbook).sort(
-        (a, b) => Number(a) - Number(b),
+        (a, b) => Number(b) - Number(a),
       );
 
       for (const p of prices) {
@@ -236,8 +237,9 @@ export class MatchingEngineService {
       }
 
       let leftQty = qty;
+      // Sort descending: sellers should match against the BEST (highest) bids first
       const prices = Object.keys(yesOrderbook).sort(
-        (a, b) => Number(a) - Number(b),
+        (a, b) => Number(b) - Number(a),
       );
 
       for (const p of prices) {

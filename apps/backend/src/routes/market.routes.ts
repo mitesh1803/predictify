@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { db, markets } from "../db";
 import { eq } from "drizzle-orm";
+import { middleware } from "../middleware/auth";
+import { z } from "zod";
 
 const router = Router();
 
@@ -28,4 +30,41 @@ router.get("/market", async (req, res) => {
   }
 });
 
+// ─── POST /markets ───────────────────────────────────────────────────────────
+const createMarketSchema = z.object({
+  title: z.string().min(5, "Title must be at least 5 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  resolutionDescription: z.string().min(5, "Resolution description required"),
+});
+
+router.post("/markets", middleware, async (req, res) => {
+  const parsed = createMarketSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ message: parsed.error.errors[0].message });
+  }
+
+  try {
+    const { title, description, resolutionDescription } = parsed.data;
+    const emptyOrderbook = JSON.stringify({});
+
+    const [newMarket] = await db
+      .insert(markets)
+      .values({
+        title,
+        description,
+        resolutionDescription,
+        yesOrderbook: emptyOrderbook,
+        noOrderbook: emptyOrderbook,
+        totalQty: 0,
+      })
+      .returning();
+
+    res.status(201).json({ market: newMarket });
+  } catch (error) {
+    console.error("Error creating market:", error);
+    res.status(500).json({ message: "Error creating market" });
+  }
+});
+
 export default router;
+
