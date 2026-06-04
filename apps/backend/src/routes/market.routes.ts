@@ -54,10 +54,14 @@ router.post("/markets", middleware, async (req, res) => {
       .returning();
 
     res.status(201).json({ market: newMarket });
-  } catch (error) {
-    console.error("Error creating market:", error);
-    res.status(500).json({ message: "Error creating market" });
-  }
+  } catch (error: any) {
+  res.status(500).json({ 
+    message: "Error fetching markets", 
+    error: error.message,
+    code: error.code,
+    detail: error.detail,
+  });
+}
 });
 
 export default router;
