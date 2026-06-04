@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "bun src/index.ts",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}
