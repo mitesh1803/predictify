@@ -2,7 +2,7 @@ import { Router } from "express";
 import { db, markets } from "../db";
 import { eq } from "drizzle-orm";
 import { middleware } from "../middleware/auth";
-import { z } from "zod";
+import { createMarketSchema } from "../schemas/order.schema";
 
 const router = Router();
 
@@ -12,7 +12,7 @@ router.get("/markets", async (req, res) => {
     const allMarkets = await db.select().from(markets);
     res.json({ markets: allMarkets });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching markets" });
+    res.status(500).json({ message: "Error fetching markets",error:error.message });
   }
 });
 
@@ -31,12 +31,6 @@ router.get("/market", async (req, res) => {
 });
 
 // ─── POST /markets ───────────────────────────────────────────────────────────
-const createMarketSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
-  resolutionDescription: z.string().min(5, "Resolution description required"),
-});
-
 router.post("/markets", middleware, async (req, res) => {
   const parsed = createMarketSchema.safeParse(req.body);
   if (!parsed.success) {
