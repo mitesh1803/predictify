@@ -1,159 +1,205 @@
-# Turborepo starter
+# Predictify: Prediction Market Platform
 
-This Turborepo starter is maintained by the Turborepo core team.
+Predictify is a high-performance, modern prediction market platform (similar to Polymarket) built on a monorepo architecture. It allows users to authenticate using their Solana wallets and trade on future event outcomes using USD.
 
-## Using this example
+The codebase is organized as a Turborepo monorepo, using Bun as the package manager and runtime, Drizzle ORM for database operations, and Supabase Postgres for persistence and auth. It features a unique **dual-mode architecture** that automatically switches between a live production backend and a fully functional client-side simulation (Demo Mode) based on backend API availability.
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## 🏗 Repository Architecture
+
+```mermaid
+graph TD
+    subgraph Frontend [apps/frontend React/Vite]
+        UI[Interactive UI]
+        SupabaseClient[Supabase Web3 Auth]
+        LocalEngine[Client-Side Demo Matching Engine]
+    end
+
+    subgraph Backend [apps/backend Express/Bun]
+        AuthMiddleware[Supabase JWT Verification]
+        OrderService[Split, Merge, & Order Execution]
+        MatchingEngine[Real-Time Order Matching]
+        WalletService[Simulated Onramp/Offramp & Balances]
+    end
+
+    subgraph DatabasePackage [packages/db Drizzle]
+        DrizzleSchema[Drizzle Schema & Client]
+    end
+
+    subgraph ExternalServices [External Services]
+        SupabaseAuth[Supabase Auth / Solana Custom Claims]
+        SupabasePostgres[(Supabase Postgres Database)]
+    end
+
+    UI -->|1. Authenticate| SupabaseClient
+    SupabaseClient <-->|Solana Wallet Web3 Auth| SupabaseAuth
+    UI -->|2. Check Health & Trade| Backend
+    UI -.->|Fallback if Offline| LocalEngine
+    AuthMiddleware -->|Validate JWT Token| SupabaseAuth
+    Backend -->|Database Queries| DrizzleSchema
+    DrizzleSchema <-->|Read/Write Operations| SupabasePostgres
 ```
 
-## What's inside?
+## Tech Stack
+ 
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, Vite, TypeScript, Supabase JS |
+| Backend | Express 5, Bun runtime, TypeScript |
+| Database | PostgreSQL via Drizzle ORM |
+| Auth | Supabase (Web3 wallet-based) |
+| Monorepo | Turborepo + Bun workspaces |
+| Deployment | Railway (Nixpacks) |
+ 
+---
+ 
 
-This Turborepo includes the following packages/apps:
+### Monorepo Structure
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```
+predictify/
+├── apps/
+│   ├── frontend/         # React + Vite client-side trading dashboard
+│   └── backend/          # Express.js backend services & Matching Engine
+├── packages/
+│   ├── db/               # Shared Drizzle ORM schemas, migration setup, and client
+│   ├── ui/               # Shared UI component workspace stub
+│   ├── eslint-config/    # Monorepo-wide ESLint configurations
+│   └── typescript-config/# Shared TSConfig rules
+├── package.json          # Root Monorepo configuration
+├── turbo.json            # Turborepo task runner configuration
+└── bun.lock              # Lockfile for Bun package manager
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo build
-bun dlx turbo build
-bun exec turbo build
+## ⚙️ Prerequisites & Setup
+
+### Requirements
+
+- **Node.js** >= 18 or **Bun** >= 1.1.0 (Bun is highly recommended and used by default in CLI scripts)
+- **Supabase Account** with a PostgreSQL database instance and Web3/Solana Auth provider configured.
+
+### Environment Configuration
+
+Ensure you configure the `.env` files in each workspace before starting:
+
+| Directory       | Filename | Environment Variables Required                                    |
+| :-------------- | :------- | :---------------------------------------------------------------- |
+| `packages/db`   | `.env`   | `DATABASE_URL` (Direct/Pooler PostgreSQL connection string)       |
+| `apps/backend`  | `.env`   | `DATABASE_URL`, `SUPABASE_SECRET_KEY`, `VITE_SUPABASE_URL`        |
+| `apps/frontend` | `.env`   | `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_BACKEND_URL` |
+
+> [!NOTE]
+> For local development, `VITE_BACKEND_URL` in the frontend can be set to `http://localhost:3000`.
+
+---
+
+## 🚀 Running the Project
+
+Install all dependencies in the monorepo from the root directory:
+
+```bash
+bun install
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### Development
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Start the frontend, backend, and build shared workspaces in watch mode simultaneously:
 
-```sh
-turbo build --filter=docs
+```bash
+bun dev
 ```
 
-Without global `turbo`:
+- **Frontend Dashboard:** [http://localhost:5173](http://localhost:5173)
+- **Backend API:** [http://localhost:3000](http://localhost:3000)
 
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
+### Production Build
+
+Build all apps and packages in the workspace:
+
+```bash
+bun run build
 ```
 
-### Develop
+### Code Formatting & Type Checks
 
-To develop all apps and packages, run the following command:
+Run prettier formatting across all packages:
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
+```bash
+bun run format
 ```
 
-Without global `turbo`, use your package manager:
+Run TypeScript compiler type checks for the entire workspace:
 
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
+```bash
+bun run check-types
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## 📂 Packages Overview
 
-```sh
-turbo dev --filter=web
+### 1. Backend (`apps/backend`)
+
+An Express server powered by Bun that handles user registrations, live balance adjustments, simulated fiat onramps/offramps, market details, order history logging, and the core **Matching Engine**.
+_Refer to [apps/backend/README.md](./apps/backend/README.md) for endpoint details and design documentation._
+
+### 2. Frontend (`apps/frontend`)
+
+A beautiful, responsive React trading dashboard showcasing implied Yes/No price probabilities, orderbooks, and portfolio tracking. The client features an offline-first capability that simulates order matching, splits, merges, deposits, and withdrawals inside `localStorage` if it cannot reach the backend.
+_Refer to [apps/frontend/README.md](./apps/frontend/README.md) for UI features and local matching simulation details._
+
+### 3. Shared Database (`packages/db`)
+
+Defines the database schema using Drizzle ORM.
+
+- **`users`**: Maps Supabase verified Solana wallet addresses to internal user IDs and maintains USD balances (stored as integers in cents).
+- **`markets`**: Event contracts with titles, descriptions, status/resolutions, and YES/NO ask books stored as structured JSON.
+- **`positions`**: Tracks how many Yes or No shares of a given market a user holds.
+- **`orderHistory`**: Audit trail of all transactions (Buy, Sell, Split, Merge, Onramp, Offramp).
+
+To generate migrations or seed the database, run these commands inside the `packages/db` directory:
+
+```bash
+# Generate database schema migrations
+bunx drizzle-kit generate
+
+# Run migrations against live DB
+bunx drizzle-kit migrate
+
+# Seed dummy markets (e.g. BTC $150k, GPT-5, Mars Landing)
+bun run seed.ts
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
-```
+## 🧠 Core Prediction Market Mechanics
 
-### Remote Caching
+### Market Pricing & Shares
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Every prediction market is centered around a question that resolves to either **Yes** or **No**.
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+1. The combined price of one **Yes** share and one **No** share is always **$1.00 (100 cents)**.
+2. Holding a winning share pays out **$1.00** upon resolution; holding a losing share pays out **$0.00**.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+### Split & Merge Actions
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+To ensure liquidity, Predictify supports split and merge operations:
 
-```sh
-cd my-turborepo
-turbo login
-```
+- **Split**: Users can spend **$1.00 USD** cash to generate **1 YES share** and **1 NO share** of any market.
+- **Merge**: Users can redeem **1 YES share** and **1 NO share** simultaneously to recover **$1.00 USD** cash.
 
-Without global `turbo`, use your package manager:
+### Implied Probability & Orderbooks
 
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
-```
+The matching engine works strictly with **Ask (sell) Orderbooks** for YES and NO outcomes:
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+- An ask to sell YES at `P` cents is equivalent to an implied bid to buy NO at `100 - P` cents.
+- The application synthesizes Yes and No bid/ask spreads automatically by crossing orderbooks, generating a dynamic market spread.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## 📝 License
 
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+This project is private and proprietary.

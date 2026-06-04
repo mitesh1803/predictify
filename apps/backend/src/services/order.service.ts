@@ -197,7 +197,7 @@ export class OrderService {
         user,
         market,
         { marketId, side, type, price, qty },
-        originalOrderId
+        originalOrderId,
       );
     });
   }

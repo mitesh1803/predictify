@@ -4,7 +4,7 @@ export const CreateOrderSchema = z.object({
   marketId: z.string(),
   side: z.enum(["yes", "no"]),
   type: z.enum(["buy", "sell"]),
-  price: z.number().int(), // 10 => 0.10$ 
+  price: z.number().int(), // 10 => 0.10$
   qty: z.number().int(), // 10 => 10qty
 });
 

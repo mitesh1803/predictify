@@ -7,8 +7,14 @@ export class MatchingEngineService {
     tx: any,
     user: { id: string; usdBalance: number },
     market: { id: string; yesOrderbook: unknown; noOrderbook: unknown },
-    orderData: { marketId: string; side: "yes" | "no"; type: "buy" | "sell"; price: number; qty: number },
-    originalOrderId: string
+    orderData: {
+      marketId: string;
+      side: "yes" | "no";
+      type: "buy" | "sell";
+      price: number;
+      qty: number;
+    },
+    originalOrderId: string,
   ) {
     const { marketId, side, type, price, qty } = orderData;
     const userId = user.id;

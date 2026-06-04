@@ -81,7 +81,7 @@ router.post("/order", middleware, async (req, res) => {
       data.side,
       data.type,
       data.price,
-      data.qty
+      data.qty,
     );
     res.json({ message: "Order executed successfully" });
   } catch (error: any) {

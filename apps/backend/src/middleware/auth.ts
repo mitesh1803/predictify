@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Request, Response, NextFunction } from "express";
+
 console.log("SUPABASE_URL:", process.env.SUPABASE_URL);
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL as string,

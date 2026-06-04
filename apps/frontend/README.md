@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# Predictify Frontend Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, modern prediction market dashboard built using **React 19**, **Vite**, and **TypeScript**. It offers users a fast, interactive experience to analyze event probabilities, inspect YES/NO order books, execute trades, and manage their positions.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🎨 Design & Aesthetic Features
 
-## React Compiler
+- **Sleek Dark Mode Glassmorphism:** Uses a polished modern palette, subtle gradients, and card components that mimic glass reflections (`backdrop-filter`) to present a premium financial instrument dashboard.
+- **Micro-Animations & Visual Cues:** Incorporates hover animations, transition effects, flashing alerts, and green/red color-coded trade actions.
+- **Responsive Layout:** The grid layout scales down to support tablet and mobile screens.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Key Technical Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Dual Mode System (Live vs. Demo Simulation)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Predictify has a resilient client-side architecture that detects backend connection health:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Live Mode:** Connects to the Express API (running at `VITE_BACKEND_URL`). Calls routes to store and load order books, user portfolios, and transaction logs. Uses Supabase authorization headers.
+- **Demo/Simulation Mode (Offline Fallback):** If the client fails to connect to the backend, it falls back to a mock demo workspace.
+  - A client-side replica of the **Matching Engine** runs inside the browser.
+  - Orderbooks, user balances, positions, and history logs are read from and written to `localStorage`.
+  - Allows full exploration of market trading mechanics without setting up a backend server.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Solana Web3 Authentication
+
+Authentication is powered by **Supabase Web3 Auth**.
+
+- Clicking "Connect Wallet" triggers a Solana wallet provider sign-in modal using `supabase.auth.signInWithWeb3`.
+- The wallet signs a cryptographic challenge to prove ownership.
+- Supabase stores the verified wallet address inside custom claims (`claims.custom_claims.address`), which are extracted by the backend for authentication.
+
+### 3. Orderbook Decoding Logic
+
+The event orderbooks are fetched from the server as two objects: `yesOrderbook` and `noOrderbook` representing active limit asks. The frontend dynamically computes bid/ask tables:
+
+- **YES Asks:** Directly rendered from active YES sell orders.
+- **YES Bids:** Derived by taking NO asks and subtracting them from 100 (`100 - noAskPrice`).
+- **NO Asks:** Directly rendered from active NO sell orders.
+- **NO Bids:** Derived by taking YES asks and subtracting them from 100 (`100 - yesAskPrice`).
+- **Implied Event Probability:** Calculated as the midpoint between the best YES bid and YES ask.
+
+---
+
+## 📂 Project Structure
+
+```
+apps/frontend/src/
+├── assets/          # Static files (icons, logos)
+├── components/      # UI components (modal dialogs, buttons, cards)
+├── hooks/           # Custom React hooks
+│   └── useUser.ts   # Retrieves Supabase auth session, profile, and claims
+├── lib/             # Third-party integrations
+│   └── supabaseClient.ts # Supabase JS configuration client
+├── types/           # Global TypeScript type definitions
+├── App.tsx          # Main entry file containing the trading dashboard interface
+├── App.css          # Core layout, glassmorphism, and color styling rules
+├── index.css        # Typography and global CSS reset styling
+└── main.tsx         # Root renderer
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔑 Environment Setup
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Create an `.env` file in `apps/frontend/` with the following variables:
+
+```env
+# Supabase configuration details
+VITE_SUPABASE_URL=https://<your-project-id>.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_public_key
+
+# Address of your backend server (e.g. http://localhost:3000 for local dev)
+VITE_BACKEND_URL=http://localhost:3000
 ```
+
+---
+
+## 🚀 Running the Client
+
+Ensure you have installed the monorepo dependencies first.
+
+### Development
+
+Start the client-side server locally:
+
+```bash
+bun run dev
+```
+
+The application will open on [http://localhost:5173](http://localhost:5173).
+
+### Build & Deploy
+
+Compile the TypeScript files and bundle the production assets using Vite:
+
+```bash
+bun run build
+```
+
+The output directory will be created under `dist/`, which is ready to be hosted on Vercel, Netlify, or Railway.
+
+---
+
+## 📈 Interactive Features
+
+1. **Market Catalog:** Filter events by category (e.g. All, Crypto, Tech, Science) and search for event titles.
+2. **Trading Widget:**
+   - **Buy Tab:** Place limit orders to buy YES or NO shares at your chosen price (1-99¢).
+   - **Sell Tab:** Sell your existing YES or NO positions back to the orderbook.
+   - **Split Tab:** Mint a pair of YES and NO shares for $1.00 USD.
+   - **Merge Tab:** Redeem a YES and NO share pair back to $1.00 USD cash.
+3. **Liquidity Pools Orderbook:** Displays tables showing available order sizes at different price increments for YES and NO outcomes.
+4. **Fund Ramps Modal:** Click "Deposit" or "Withdraw" to instantly onramp/offramp simulated test funds into your wallet balance.
+5. **Portfolio & Ledger Log:** Inspect active positions and historical actions at the bottom of the screen.

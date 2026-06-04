@@ -12,7 +12,9 @@ router.get("/markets", async (req, res) => {
     const allMarkets = await db.select().from(markets);
     res.json({ markets: allMarkets });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching markets",error:error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching markets", error: error.message });
   }
 });
 
@@ -55,14 +57,13 @@ router.post("/markets", middleware, async (req, res) => {
 
     res.status(201).json({ market: newMarket });
   } catch (error: any) {
-  res.status(500).json({ 
-    message: "Error fetching markets", 
-    error: error.message,
-    code: error.code,
-    detail: error.detail,
-  });
-}
+    res.status(500).json({
+      message: "Error fetching markets",
+      error: error.message,
+      code: error.code,
+      detail: error.detail,
+    });
+  }
 });
 
 export default router;
-

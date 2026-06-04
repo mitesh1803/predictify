@@ -65,7 +65,9 @@ router.get("/user/me", middleware, async (req, res) => {
       .limit(1);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found. Call POST /user/register first." });
+      return res
+        .status(404)
+        .json({ message: "User not found. Call POST /user/register first." });
     }
 
     return res.json({ user });

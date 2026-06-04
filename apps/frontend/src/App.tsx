@@ -40,51 +40,186 @@ const INITIAL_MOCK_MARKETS: Market[] = [
   {
     id: "solana-500-2026",
     title: "Will Solana touch $500 in 2026?",
-    description: "Solana must trade at or above $500.00 USD on any major exchange before Dec 31, 2026.",
+    description:
+      "Solana must trade at or above $500.00 USD on any major exchange before Dec 31, 2026.",
     resolutionDescription: "Source: Binance/Coinbase daily close price.",
     yesOrderbook: {
-      "62": { availableQty: 120, orders: [{ userId: "alice", qty: 120, filledQty: 0, originalOrderId: "m1", reverseOrder: false }] },
-      "65": { availableQty: 300, orders: [{ userId: "bob", qty: 300, filledQty: 0, originalOrderId: "m2", reverseOrder: false }] }
+      "62": {
+        availableQty: 120,
+        orders: [
+          {
+            userId: "alice",
+            qty: 120,
+            filledQty: 0,
+            originalOrderId: "m1",
+            reverseOrder: false,
+          },
+        ],
+      },
+      "65": {
+        availableQty: 300,
+        orders: [
+          {
+            userId: "bob",
+            qty: 300,
+            filledQty: 0,
+            originalOrderId: "m2",
+            reverseOrder: false,
+          },
+        ],
+      },
     },
     noOrderbook: {
-      "40": { availableQty: 150, orders: [{ userId: "charlie", qty: 150, filledQty: 0, originalOrderId: "m3", reverseOrder: false }] },
-      "44": { availableQty: 250, orders: [{ userId: "dave", qty: 250, filledQty: 0, originalOrderId: "m4", reverseOrder: false }] }
+      "40": {
+        availableQty: 150,
+        orders: [
+          {
+            userId: "charlie",
+            qty: 150,
+            filledQty: 0,
+            originalOrderId: "m3",
+            reverseOrder: false,
+          },
+        ],
+      },
+      "44": {
+        availableQty: 250,
+        orders: [
+          {
+            userId: "dave",
+            qty: 250,
+            filledQty: 0,
+            originalOrderId: "m4",
+            reverseOrder: false,
+          },
+        ],
+      },
     },
     totalQty: 820,
-    resolution: null
+    resolution: null,
   },
   {
     id: "spacex-mars-2028",
     title: "Will SpaceX land humans on Mars by 2028?",
-    description: "SpaceX must launch and land a crewed mission on Mars before midnight UTC on Dec 31, 2028.",
+    description:
+      "SpaceX must launch and land a crewed mission on Mars before midnight UTC on Dec 31, 2028.",
     resolutionDescription: "Source: Official NASA or SpaceX announcement.",
     yesOrderbook: {
-      "32": { availableQty: 200, orders: [{ userId: "charlie", qty: 200, filledQty: 0, originalOrderId: "m5", reverseOrder: false }] },
-      "35": { availableQty: 150, orders: [{ userId: "alice", qty: 150, filledQty: 0, originalOrderId: "m6", reverseOrder: false }] }
+      "32": {
+        availableQty: 200,
+        orders: [
+          {
+            userId: "charlie",
+            qty: 200,
+            filledQty: 0,
+            originalOrderId: "m5",
+            reverseOrder: false,
+          },
+        ],
+      },
+      "35": {
+        availableQty: 150,
+        orders: [
+          {
+            userId: "alice",
+            qty: 150,
+            filledQty: 0,
+            originalOrderId: "m6",
+            reverseOrder: false,
+          },
+        ],
+      },
     },
     noOrderbook: {
-      "70": { availableQty: 180, orders: [{ userId: "bob", qty: 180, filledQty: 0, originalOrderId: "m7", reverseOrder: false }] },
-      "72": { availableQty: 300, orders: [{ userId: "dave", qty: 300, filledQty: 0, originalOrderId: "m8", reverseOrder: false }] }
+      "70": {
+        availableQty: 180,
+        orders: [
+          {
+            userId: "bob",
+            qty: 180,
+            filledQty: 0,
+            originalOrderId: "m7",
+            reverseOrder: false,
+          },
+        ],
+      },
+      "72": {
+        availableQty: 300,
+        orders: [
+          {
+            userId: "dave",
+            qty: 300,
+            filledQty: 0,
+            originalOrderId: "m8",
+            reverseOrder: false,
+          },
+        ],
+      },
     },
     totalQty: 830,
-    resolution: null
+    resolution: null,
   },
   {
     id: "gpt5-release-2026",
     title: "Will OpenAI release GPT-5 by December 2026?",
-    description: "OpenAI must officially release or announce the public availability of GPT-5 or equivalent next-generation frontier model before Dec 31, 2026.",
+    description:
+      "OpenAI must officially release or announce the public availability of GPT-5 or equivalent next-generation frontier model before Dec 31, 2026.",
     resolutionDescription: "Source: OpenAI official announcements.",
     yesOrderbook: {
-      "75": { availableQty: 400, orders: [{ userId: "bob", qty: 400, filledQty: 0, originalOrderId: "m9", reverseOrder: false }] },
-      "78": { availableQty: 250, orders: [{ userId: "dave", qty: 250, filledQty: 0, originalOrderId: "m10", reverseOrder: false }] }
+      "75": {
+        availableQty: 400,
+        orders: [
+          {
+            userId: "bob",
+            qty: 400,
+            filledQty: 0,
+            originalOrderId: "m9",
+            reverseOrder: false,
+          },
+        ],
+      },
+      "78": {
+        availableQty: 250,
+        orders: [
+          {
+            userId: "dave",
+            qty: 250,
+            filledQty: 0,
+            originalOrderId: "m10",
+            reverseOrder: false,
+          },
+        ],
+      },
     },
     noOrderbook: {
-      "25": { availableQty: 320, orders: [{ userId: "alice", qty: 320, filledQty: 0, originalOrderId: "m11", reverseOrder: false }] },
-      "28": { availableQty: 100, orders: [{ userId: "charlie", qty: 100, filledQty: 0, originalOrderId: "m12", reverseOrder: false }] }
+      "25": {
+        availableQty: 320,
+        orders: [
+          {
+            userId: "alice",
+            qty: 320,
+            filledQty: 0,
+            originalOrderId: "m11",
+            reverseOrder: false,
+          },
+        ],
+      },
+      "28": {
+        availableQty: 100,
+        orders: [
+          {
+            userId: "charlie",
+            qty: 100,
+            filledQty: 0,
+            originalOrderId: "m12",
+            reverseOrder: false,
+          },
+        ],
+      },
     },
     totalQty: 1070,
-    resolution: null
-  }
+    resolution: null,
+  },
 ];
 
 function App() {
@@ -105,14 +240,18 @@ function App() {
   const [historyList, setHistoryList] = useState<HistoryItem[]>([]);
 
   // Trading widget state
-  const [tradeTab, setTradeTab] = useState<"buy" | "sell" | "split" | "merge">("buy");
+  const [tradeTab, setTradeTab] = useState<"buy" | "sell" | "split" | "merge">(
+    "buy",
+  );
   const [outcomeSide, setOutcomeSide] = useState<"yes" | "no">("yes");
   const [orderPrice, setOrderPrice] = useState<number>(50); // cents, 1-99
   const [orderQty, setOrderQty] = useState<number>(10);
   const [splitMergeAmount, setSplitMergeAmount] = useState<number>(50);
 
   // Ramp Modals
-  const [showRampModal, setShowRampModal] = useState<"onramp" | "offramp" | null>(null);
+  const [showRampModal, setShowRampModal] = useState<
+    "onramp" | "offramp" | null
+  >(null);
   const [rampAmount, setRampAmount] = useState<string>("100");
 
   // Create Market Modal
@@ -123,7 +262,10 @@ function App() {
   const [createMarketLoading, setCreateMarketLoading] = useState(false);
 
   // Notifications
-  const [notification, setNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
 
   // Active address
   const userAddress = useMemo(() => {
@@ -142,7 +284,10 @@ function App() {
   useEffect(() => {
     const checkBackend = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/markets`, { timeout: 1500 });
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/markets`,
+          { timeout: 1500 },
+        );
         if (response.data && response.data.markets) {
           setBackendAvailable(true);
           setDemoMode(false);
@@ -163,7 +308,9 @@ function App() {
     if (!demoMode && backendAvailable) {
       try {
         // Fetch markets
-        const marketsRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/markets`);
+        const marketsRes = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/markets`,
+        );
         setMarketsList(marketsRes.data.markets);
         if (marketsRes.data.markets.length > 0 && !selectedMarketId) {
           setSelectedMarketId(marketsRes.data.markets[0].id);
@@ -174,14 +321,23 @@ function App() {
         const token = sessionRes.data.session?.access_token;
         if (token) {
           const authHeaders = { headers: { Authorization: `Bearer ${token}` } };
-          const balanceRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/balance`, authHeaders);
+          const balanceRes = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/balance`,
+            authHeaders,
+          );
           setUsdBalance(balanceRes.data.balance || 0);
 
-          const positionsRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/positions`, authHeaders);
+          const positionsRes = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/positions`,
+            authHeaders,
+          );
           setPositionsList(positionsRes.data.positions || []);
 
           // GET /history — read operation, not POST
-          const historyRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/history`, authHeaders);
+          const historyRes = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/history`,
+            authHeaders,
+          );
           setHistoryList(historyRes.data.history || []);
         } else {
           setUsdBalance(0);
@@ -201,7 +357,10 @@ function App() {
       if (storedMarkets) {
         setMarketsList(JSON.parse(storedMarkets));
       } else {
-        localStorage.setItem("demo_markets", JSON.stringify(INITIAL_MOCK_MARKETS));
+        localStorage.setItem(
+          "demo_markets",
+          JSON.stringify(INITIAL_MOCK_MARKETS),
+        );
         setMarketsList(INITIAL_MOCK_MARKETS);
       }
 
@@ -246,13 +405,19 @@ function App() {
 
   // Get active market
   const activeMarket = useMemo(() => {
-    return marketsList.find(m => m.id === selectedMarketId) || null;
+    return marketsList.find((m) => m.id === selectedMarketId) || null;
   }, [marketsList, selectedMarketId]);
 
   // Parse orderbook for active market
   const { yesBids, yesAsks, noBids, noAsks, impliedYesPrice } = useMemo(() => {
     if (!activeMarket) {
-      return { yesBids: [], yesAsks: [], noBids: [], noAsks: [], impliedYesPrice: 50 };
+      return {
+        yesBids: [],
+        yesAsks: [],
+        noBids: [],
+        noAsks: [],
+        impliedYesPrice: 50,
+      };
     }
 
     const parseBook = (book: any) => {
@@ -269,25 +434,25 @@ function App() {
     const noB: { price: number; qty: number }[] = [];
 
     // Yes Asks (from yesOrderbook)
-    Object.keys(yesOrderbook).forEach(price => {
+    Object.keys(yesOrderbook).forEach((price) => {
       const qty = yesOrderbook[price]?.availableQty || 0;
       if (qty > 0) yesA.push({ price: Number(price), qty });
     });
 
     // Yes Bids (100 - noOrderbook Asks)
-    Object.keys(noOrderbook).forEach(price => {
+    Object.keys(noOrderbook).forEach((price) => {
       const qty = noOrderbook[price]?.availableQty || 0;
       if (qty > 0) yesB.push({ price: 100 - Number(price), qty });
     });
 
     // No Asks (from noOrderbook)
-    Object.keys(noOrderbook).forEach(price => {
+    Object.keys(noOrderbook).forEach((price) => {
       const qty = noOrderbook[price]?.availableQty || 0;
       if (qty > 0) noA.push({ price: Number(price), qty });
     });
 
     // No Bids (100 - yesOrderbook Asks)
-    Object.keys(yesOrderbook).forEach(price => {
+    Object.keys(yesOrderbook).forEach((price) => {
       const qty = yesOrderbook[price]?.availableQty || 0;
       if (qty > 0) noB.push({ price: 100 - Number(price), qty });
     });
@@ -307,13 +472,21 @@ function App() {
       prob = yesA[0].price;
     }
 
-    return { yesBids: yesB, yesAsks: yesA, noBids: noB, noAsks: noA, impliedYesPrice: prob };
+    return {
+      yesBids: yesB,
+      yesAsks: yesA,
+      noBids: noB,
+      noAsks: noA,
+      impliedYesPrice: prob,
+    };
   }, [activeMarket]);
 
   // Sync Slider/Price when trade outcome toggles
   useEffect(() => {
     if (tradeTab === "buy") {
-      setOrderPrice(outcomeSide === "yes" ? impliedYesPrice : 100 - impliedYesPrice);
+      setOrderPrice(
+        outcomeSide === "yes" ? impliedYesPrice : 100 - impliedYesPrice,
+      );
     }
   }, [outcomeSide, impliedYesPrice, tradeTab]);
 
@@ -339,11 +512,13 @@ function App() {
       const sessionRes = await supabase.auth.getSession();
       const token = sessionRes.data.session?.access_token;
       if (token) {
-        await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/user/register`,
-          {},
-          { headers: { Authorization: `Bearer ${token}` } }
-        ).catch(() => {}); // Ignore errors — user may already exist
+        await axios
+          .post(
+            `${import.meta.env.VITE_BACKEND_URL}/user/register`,
+            {},
+            { headers: { Authorization: `Bearer ${token}` } },
+          )
+          .catch(() => {}); // Ignore errors — user may already exist
       }
     } catch (e: any) {
       showNotification("Solana Wallet Connection Failed", "error");
@@ -377,18 +552,26 @@ function App() {
         await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/${endpoint}`,
           { amount },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
-        showNotification(`${showRampModal === "onramp" ? "Deposited" : "Withdrawn"} ${formatUSD(amount * 100)} successfully!`, "success");
+        showNotification(
+          `${showRampModal === "onramp" ? "Deposited" : "Withdrawn"} ${formatUSD(amount * 100)} successfully!`,
+          "success",
+        );
         setShowRampModal(null);
         fetchData();
       } catch (err: any) {
-        showNotification(err.response?.data?.message || `Error processing ${showRampModal}`, "error");
+        showNotification(
+          err.response?.data?.message || `Error processing ${showRampModal}`,
+          "error",
+        );
       }
     } else {
       // Demo simulation ramp
-      const currentBalance = Number(localStorage.getItem("demo_balance") || "0");
+      const currentBalance = Number(
+        localStorage.getItem("demo_balance") || "0",
+      );
       const delta = amount * 100;
       const historyStr = localStorage.getItem("demo_history") || "[]";
       const history: HistoryItem[] = JSON.parse(historyStr);
@@ -398,7 +581,10 @@ function App() {
         return;
       }
 
-      const nextBalance = showRampModal === "onramp" ? currentBalance + delta : currentBalance - delta;
+      const nextBalance =
+        showRampModal === "onramp"
+          ? currentBalance + delta
+          : currentBalance - delta;
       localStorage.setItem("demo_balance", String(nextBalance));
       setUsdBalance(nextBalance);
 
@@ -410,13 +596,17 @@ function App() {
         userId: "demo-user-address",
         marketId: "",
         createdAt: new Date().toISOString(),
-        marketTitle: showRampModal === "onramp" ? "Deposit Funds" : "Withdraw Funds"
+        marketTitle:
+          showRampModal === "onramp" ? "Deposit Funds" : "Withdraw Funds",
       };
       history.unshift(logItem);
       localStorage.setItem("demo_history", JSON.stringify(history));
       setHistoryList(history);
 
-      showNotification(`${showRampModal === "onramp" ? "Deposited" : "Withdrawn"} ${formatUSD(delta)} successfully!`, "success");
+      showNotification(
+        `${showRampModal === "onramp" ? "Deposited" : "Withdrawn"} ${formatUSD(delta)} successfully!`,
+        "success",
+      );
       setShowRampModal(null);
     }
   };
@@ -442,13 +632,19 @@ function App() {
         await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/split`,
           { marketId: activeMarket.id, amount },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
-        showNotification(`Successfully split ${amount} USD into position pairs`, "success");
+        showNotification(
+          `Successfully split ${amount} USD into position pairs`,
+          "success",
+        );
         fetchData();
       } catch (err: any) {
-        showNotification(err.response?.data?.message || "Error processing split", "error");
+        showNotification(
+          err.response?.data?.message || "Error processing split",
+          "error",
+        );
       }
     } else {
       // Demo simulation split
@@ -467,7 +663,9 @@ function App() {
       const positions: Position[] = JSON.parse(storedPos);
 
       const addPosition = (type: "Yes" | "No") => {
-        const existing = positions.find(p => p.marketId === activeMarket.id && p.type === type);
+        const existing = positions.find(
+          (p) => p.marketId === activeMarket.id && p.type === type,
+        );
         if (existing) {
           existing.qty += amount;
         } else {
@@ -476,7 +674,7 @@ function App() {
             userId: "demo-user-address",
             marketId: activeMarket.id,
             type,
-            qty: amount
+            qty: amount,
           });
         }
       };
@@ -497,12 +695,15 @@ function App() {
         userId: "demo-user-address",
         marketId: activeMarket.id,
         createdAt: new Date().toISOString(),
-        marketTitle: activeMarket.title
+        marketTitle: activeMarket.title,
       });
       localStorage.setItem("demo_history", JSON.stringify(history));
       setHistoryList(history);
 
-      showNotification(`Successfully split $${(amount/100).toFixed(2)} USD into YES and NO shares`, "success");
+      showNotification(
+        `Successfully split $${(amount / 100).toFixed(2)} USD into YES and NO shares`,
+        "success",
+      );
     }
   };
 
@@ -527,18 +728,28 @@ function App() {
         await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/merge`,
           { marketId: activeMarket.id, amount },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
-        showNotification(`Successfully merged position pairs back into ${amount} USD`, "success");
+        showNotification(
+          `Successfully merged position pairs back into ${amount} USD`,
+          "success",
+        );
         fetchData();
       } catch (err: any) {
-        showNotification(err.response?.data?.message || "Error processing merge", "error");
+        showNotification(
+          err.response?.data?.message || "Error processing merge",
+          "error",
+        );
       }
     } else {
       // Demo simulation merge
-      const yesPos = positionsList.find(p => p.marketId === activeMarket.id && p.type === "Yes");
-      const noPos = positionsList.find(p => p.marketId === activeMarket.id && p.type === "No");
+      const yesPos = positionsList.find(
+        (p) => p.marketId === activeMarket.id && p.type === "Yes",
+      );
+      const noPos = positionsList.find(
+        (p) => p.marketId === activeMarket.id && p.type === "No",
+      );
 
       if (!yesPos || yesPos.qty < amount || !noPos || noPos.qty < amount) {
         showNotification("Insufficient YES or NO shares to merge", "error");
@@ -550,7 +761,9 @@ function App() {
       const positions: Position[] = JSON.parse(storedPos);
 
       const decPosition = (type: "Yes" | "No") => {
-        const idx = positions.findIndex(p => p.marketId === activeMarket.id && p.type === type);
+        const idx = positions.findIndex(
+          (p) => p.marketId === activeMarket.id && p.type === type,
+        );
         if (idx !== -1) {
           positions[idx].qty -= amount;
           if (positions[idx].qty <= 0) {
@@ -580,12 +793,15 @@ function App() {
         userId: "demo-user-address",
         marketId: activeMarket.id,
         createdAt: new Date().toISOString(),
-        marketTitle: activeMarket.title
+        marketTitle: activeMarket.title,
       });
       localStorage.setItem("demo_history", JSON.stringify(history));
       setHistoryList(history);
 
-      showNotification(`Successfully merged YES and NO shares back to $${(amount/100).toFixed(2)} USD`, "success");
+      showNotification(
+        `Successfully merged YES and NO shares back to $${(amount / 100).toFixed(2)} USD`,
+        "success",
+      );
     }
   };
 
@@ -602,7 +818,10 @@ function App() {
         const sessionRes = await supabase.auth.getSession();
         const token = sessionRes.data.session?.access_token;
         if (!token) {
-          showNotification("You must sign in via Solana to place orders", "error");
+          showNotification(
+            "You must sign in via Solana to place orders",
+            "error",
+          );
           return;
         }
 
@@ -613,15 +832,18 @@ function App() {
             side: outcomeSide,
             type: tradeTab,
             price: orderPrice,
-            qty: orderQty
+            qty: orderQty,
           },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
 
         showNotification("Order executed successfully!", "success");
         fetchData();
       } catch (err: any) {
-        showNotification(err.response?.data?.message || "Error placing order", "error");
+        showNotification(
+          err.response?.data?.message || "Error placing order",
+          "error",
+        );
       }
     } else {
       // Demo Mode Client Matching Engine
@@ -633,12 +855,20 @@ function App() {
         }
 
         // Lock & Copy state from localStorage
-        const storedMarkets = JSON.parse(localStorage.getItem("demo_markets") || "[]");
-        const storedPos = JSON.parse(localStorage.getItem("demo_positions") || "[]");
-        const storedHist = JSON.parse(localStorage.getItem("demo_history") || "[]");
+        const storedMarkets = JSON.parse(
+          localStorage.getItem("demo_markets") || "[]",
+        );
+        const storedPos = JSON.parse(
+          localStorage.getItem("demo_positions") || "[]",
+        );
+        const storedHist = JSON.parse(
+          localStorage.getItem("demo_history") || "[]",
+        );
         let userBal = Number(localStorage.getItem("demo_balance") || "0");
 
-        const marketIndex = storedMarkets.findIndex((m: Market) => m.id === activeMarket.id);
+        const marketIndex = storedMarkets.findIndex(
+          (m: Market) => m.id === activeMarket.id,
+        );
         if (marketIndex === -1) throw new Error("Market not found");
         const m: Market = storedMarkets[marketIndex];
 
@@ -652,9 +882,15 @@ function App() {
         const originalOrderId = crypto.randomUUID();
 
         // Helper updates
-        const updatePosQty = (uId: string, sideType: "Yes" | "No", delta: number) => {
+        const updatePosQty = (
+          uId: string,
+          sideType: "Yes" | "No",
+          delta: number,
+        ) => {
           if (uId !== "demo-user-address") return; // Only track demo user's local positions
-          const idx = storedPos.findIndex((p: Position) => p.marketId === m.id && p.type === sideType);
+          const idx = storedPos.findIndex(
+            (p: Position) => p.marketId === m.id && p.type === sideType,
+          );
           if (idx !== -1) {
             storedPos[idx].qty += delta;
             if (storedPos[idx].qty <= 0) storedPos.splice(idx, 1);
@@ -664,7 +900,7 @@ function App() {
               userId: "demo-user-address",
               marketId: m.id,
               type: sideType,
-              qty: delta
+              qty: delta,
             });
           }
         };
@@ -678,7 +914,9 @@ function App() {
         // ── YES BUY ──
         if (outcomeSide === "yes" && tradeTab === "buy") {
           let leftQty = orderQty;
-          const prices = Object.keys(yesOrderbook).sort((a, b) => Number(a) - Number(b));
+          const prices = Object.keys(yesOrderbook).sort(
+            (a, b) => Number(a) - Number(b),
+          );
 
           for (const p of prices) {
             if (Number(p) > orderPrice) continue;
@@ -712,7 +950,7 @@ function App() {
               userId: "demo-user-address",
               filledQty: 0,
               originalOrderId,
-              reverseOrder: true
+              reverseOrder: true,
             });
           }
         }
@@ -720,11 +958,17 @@ function App() {
         // ── YES SELL ──
         if (outcomeSide === "yes" && tradeTab === "sell") {
           const buyPrice = 100 - orderPrice;
-          const userHasQty = storedPos.find((p: Position) => p.marketId === m.id && p.type === "Yes")?.qty || 0;
-          if (userHasQty < orderQty) throw new Error("Insufficient Yes position");
+          const userHasQty =
+            storedPos.find(
+              (p: Position) => p.marketId === m.id && p.type === "Yes",
+            )?.qty || 0;
+          if (userHasQty < orderQty)
+            throw new Error("Insufficient Yes position");
 
           let leftQty = orderQty;
-          const prices = Object.keys(noOrderbook).sort((a, b) => Number(a) - Number(b));
+          const prices = Object.keys(noOrderbook).sort(
+            (a, b) => Number(a) - Number(b),
+          );
 
           for (const p of prices) {
             if (Number(p) > buyPrice) continue;
@@ -757,7 +1001,7 @@ function App() {
               userId: "demo-user-address",
               filledQty: 0,
               originalOrderId,
-              reverseOrder: false
+              reverseOrder: false,
             });
           }
         }
@@ -765,7 +1009,9 @@ function App() {
         // ── NO BUY ──
         if (outcomeSide === "no" && tradeTab === "buy") {
           let leftQty = orderQty;
-          const prices = Object.keys(noOrderbook).sort((a, b) => Number(a) - Number(b));
+          const prices = Object.keys(noOrderbook).sort(
+            (a, b) => Number(a) - Number(b),
+          );
 
           for (const p of prices) {
             if (Number(p) > orderPrice) continue;
@@ -799,7 +1045,7 @@ function App() {
               userId: "demo-user-address",
               filledQty: 0,
               originalOrderId,
-              reverseOrder: true
+              reverseOrder: true,
             });
           }
         }
@@ -807,11 +1053,17 @@ function App() {
         // ── NO SELL ──
         if (outcomeSide === "no" && tradeTab === "sell") {
           const buyPrice = 100 - orderPrice;
-          const userHasQty = storedPos.find((p: Position) => p.marketId === m.id && p.type === "No")?.qty || 0;
-          if (userHasQty < orderQty) throw new Error("Insufficient No position");
+          const userHasQty =
+            storedPos.find(
+              (p: Position) => p.marketId === m.id && p.type === "No",
+            )?.qty || 0;
+          if (userHasQty < orderQty)
+            throw new Error("Insufficient No position");
 
           let leftQty = orderQty;
-          const prices = Object.keys(yesOrderbook).sort((a, b) => Number(a) - Number(b));
+          const prices = Object.keys(yesOrderbook).sort(
+            (a, b) => Number(a) - Number(b),
+          );
 
           for (const p of prices) {
             if (Number(p) > buyPrice) continue;
@@ -844,7 +1096,7 @@ function App() {
               userId: "demo-user-address",
               filledQty: 0,
               originalOrderId,
-              reverseOrder: false
+              reverseOrder: false,
             });
           }
         }
@@ -858,7 +1110,7 @@ function App() {
           userId: "demo-user-address",
           marketId: m.id,
           createdAt: new Date().toISOString(),
-          marketTitle: `${m.title} (${outcomeSide.toUpperCase()})`
+          marketTitle: `${m.title} (${outcomeSide.toUpperCase()})`,
         });
 
         // Set clean books back to market
@@ -876,7 +1128,10 @@ function App() {
         setHistoryList(storedHist);
         setUsdBalance(userBal);
 
-        showNotification(`Order placed: ${tradeTab.toUpperCase()} ${orderQty} shares of ${outcomeSide.toUpperCase()} at ${orderPrice}¢`, "success");
+        showNotification(
+          `Order placed: ${tradeTab.toUpperCase()} ${orderQty} shares of ${outcomeSide.toUpperCase()} at ${orderPrice}¢`,
+          "success",
+        );
       } catch (err: any) {
         showNotification(err.message || "Error matching order", "error");
       }
@@ -886,16 +1141,25 @@ function App() {
   // Filtered Markets list
   const filteredMarkets = useMemo(() => {
     if (marketCategory === "All") return marketsList;
-    if (marketCategory === "Crypto") return marketsList.filter(m => m.id.includes("solana"));
-    if (marketCategory === "Science") return marketsList.filter(m => m.id.includes("mars"));
-    if (marketCategory === "Tech") return marketsList.filter(m => m.id.includes("gpt") || m.id.includes("neural"));
+    if (marketCategory === "Crypto")
+      return marketsList.filter((m) => m.id.includes("solana"));
+    if (marketCategory === "Science")
+      return marketsList.filter((m) => m.id.includes("mars"));
+    if (marketCategory === "Tech")
+      return marketsList.filter(
+        (m) => m.id.includes("gpt") || m.id.includes("neural"),
+      );
     return marketsList;
   }, [marketsList, marketCategory]);
 
   // Create Market
   const handleCreateMarket = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newMarketTitle.trim() || !newMarketDesc.trim() || !newMarketResolution.trim()) {
+    if (
+      !newMarketTitle.trim() ||
+      !newMarketDesc.trim() ||
+      !newMarketResolution.trim()
+    ) {
       showNotification("Please fill in all fields", "error");
       return;
     }
@@ -916,7 +1180,7 @@ function App() {
             description: newMarketDesc,
             resolutionDescription: newMarketResolution,
           },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         await fetchData();
         setSelectedMarketId(res.data.market.id);
@@ -948,7 +1212,10 @@ function App() {
       setNewMarketDesc("");
       setNewMarketResolution("");
     } catch (err: any) {
-      showNotification(err.response?.data?.message || "Error creating market", "error");
+      showNotification(
+        err.response?.data?.message || "Error creating market",
+        "error",
+      );
     } finally {
       setCreateMarketLoading(false);
     }
@@ -958,21 +1225,26 @@ function App() {
     <div>
       {/* Notifications */}
       {notification && (
-        <div style={{
-          position: "fixed",
-          bottom: "24px",
-          right: "24px",
-          zIndex: 1100,
-          padding: "16px 24px",
-          borderRadius: "12px",
-          backgroundColor: notification.type === "success" ? "rgba(0, 240, 255, 0.15)" : "rgba(255, 0, 122, 0.15)",
-          border: `1px solid ${notification.type === "success" ? "var(--yes-color)" : "var(--no-color)"}`,
-          color: "#fff",
-          backdropFilter: "blur(12px)",
-          boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.5)",
-          fontWeight: 600,
-          animation: "pulse 3s infinite"
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            bottom: "24px",
+            right: "24px",
+            zIndex: 1100,
+            padding: "16px 24px",
+            borderRadius: "12px",
+            backgroundColor:
+              notification.type === "success"
+                ? "rgba(0, 240, 255, 0.15)"
+                : "rgba(255, 0, 122, 0.15)",
+            border: `1px solid ${notification.type === "success" ? "var(--yes-color)" : "var(--no-color)"}`,
+            color: "#fff",
+            backdropFilter: "blur(12px)",
+            boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.5)",
+            fontWeight: 600,
+            animation: "pulse 3s infinite",
+          }}
+        >
           {notification.message}
         </div>
       )}
@@ -987,7 +1259,9 @@ function App() {
         <div className="header-actions">
           {/* Status Indicator */}
           <div className="status-indicator">
-            <span className={`pulse-dot ${demoMode ? 'pulse-demo' : 'pulse-live'}`} />
+            <span
+              className={`pulse-dot ${demoMode ? "pulse-demo" : "pulse-live"}`}
+            />
             <span>{demoMode ? "Demo Mode (Simulation)" : "Live Backend"}</span>
             {backendAvailable && (
               <label className="switch" style={{ marginLeft: "8px" }}>
@@ -1018,11 +1292,19 @@ function App() {
       <div className="dashboard-grid">
         {/* Left column */}
         <div className="left-column">
-          
           {/* Category Tabs & Markets list */}
           <div className="glass-panel" style={{ padding: "20px" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-              <h2 className="section-title" style={{ marginBottom: 0 }}>Markets</h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "4px",
+              }}
+            >
+              <h2 className="section-title" style={{ marginBottom: 0 }}>
+                Markets
+              </h2>
               <button
                 id="create-market-btn"
                 className="btn-primary"
@@ -1044,14 +1326,14 @@ function App() {
               {["All", "Crypto", "Science", "Tech"].map((cat) => (
                 <button
                   key={cat}
-                  className={`tab-btn ${marketCategory === cat ? 'active' : ''}`}
+                  className={`tab-btn ${marketCategory === cat ? "active" : ""}`}
                   onClick={() => setMarketCategory(cat)}
                 >
                   {cat}
                 </button>
               ))}
             </div>
-            
+
             <div className="markets-container">
               {filteredMarkets.length === 0 ? (
                 <div className="no-data">No active markets available</div>
@@ -1059,12 +1341,26 @@ function App() {
                 filteredMarkets.map((market) => {
                   // calculate implied prob
                   const getImpliedYes = () => {
-                    const noBook = typeof market.noOrderbook === "string" ? JSON.parse(market.noOrderbook) : market.noOrderbook;
-                    const yesBook = typeof market.yesOrderbook === "string" ? JSON.parse(market.yesOrderbook) : market.yesOrderbook;
-                    const asks = Object.keys(yesBook).map(Number).filter(p => (yesBook[String(p)]?.availableQty || 0) > 0);
-                    const bids = Object.keys(noBook).map(Number).filter(p => (noBook[String(p)]?.availableQty || 0) > 0).map(p => 100 - p);
-                    
-                    if (bids.length > 0 && asks.length > 0) return Math.round((bids[0] + asks[0]) / 2);
+                    const noBook =
+                      typeof market.noOrderbook === "string"
+                        ? JSON.parse(market.noOrderbook)
+                        : market.noOrderbook;
+                    const yesBook =
+                      typeof market.yesOrderbook === "string"
+                        ? JSON.parse(market.yesOrderbook)
+                        : market.yesOrderbook;
+                    const asks = Object.keys(yesBook)
+                      .map(Number)
+                      .filter(
+                        (p) => (yesBook[String(p)]?.availableQty || 0) > 0,
+                      );
+                    const bids = Object.keys(noBook)
+                      .map(Number)
+                      .filter((p) => (noBook[String(p)]?.availableQty || 0) > 0)
+                      .map((p) => 100 - p);
+
+                    if (bids.length > 0 && asks.length > 0)
+                      return Math.round((bids[0] + asks[0]) / 2);
                     if (bids.length > 0) return bids[0];
                     if (asks.length > 0) return asks[0];
                     return 50;
@@ -1074,12 +1370,14 @@ function App() {
                   return (
                     <div
                       key={market.id}
-                      className={`glass-panel market-card glass-panel-hover ${selectedMarketId === market.id ? 'selected' : ''}`}
+                      className={`glass-panel market-card glass-panel-hover ${selectedMarketId === market.id ? "selected" : ""}`}
                       onClick={() => setSelectedMarketId(market.id)}
                     >
                       <div>
                         <div className="market-card-title">{market.title}</div>
-                        <div className="market-card-desc">{market.description.substring(0, 80)}...</div>
+                        <div className="market-card-desc">
+                          {market.description.substring(0, 80)}...
+                        </div>
                       </div>
                       <div className="market-card-stats">
                         <div className="prob-circle">{prob}%</div>
@@ -1095,41 +1393,106 @@ function App() {
           {activeMarket && (
             <div className="glass-panel market-detail-panel">
               <h2>{activeMarket.title}</h2>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginTop: "8px" }}>
+              <p
+                style={{
+                  color: "var(--text-secondary)",
+                  fontSize: "0.95rem",
+                  marginTop: "8px",
+                }}
+              >
                 {activeMarket.description}
               </p>
-              <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginTop: "6px", fontStyle: "italic" }}>
+              <div
+                style={{
+                  color: "var(--text-muted)",
+                  fontSize: "0.8rem",
+                  marginTop: "6px",
+                  fontStyle: "italic",
+                }}
+              >
                 {activeMarket.resolutionDescription}
               </div>
 
               {/* Progress probability bar */}
               <div className="probability-bar-container">
                 <div className="probability-bar-label">
-                  <span style={{ color: "var(--yes-color)" }}>YES: {impliedYesPrice}%</span>
-                  <span style={{ color: "var(--no-color)" }}>NO: {100 - impliedYesPrice}%</span>
+                  <span style={{ color: "var(--yes-color)" }}>
+                    YES: {impliedYesPrice}%
+                  </span>
+                  <span style={{ color: "var(--no-color)" }}>
+                    NO: {100 - impliedYesPrice}%
+                  </span>
                 </div>
                 <div className="probability-bar-bg">
-                  <div className="probability-bar-yes" style={{ width: `${impliedYesPrice}%` }} />
+                  <div
+                    className="probability-bar-yes"
+                    style={{ width: `${impliedYesPrice}%` }}
+                  />
                 </div>
               </div>
 
               {/* Area Line Chart Visualization */}
-              <h3 style={{ fontSize: "1rem", color: "var(--text-secondary)", marginBottom: "8px" }}>Implied Probability History</h3>
-              <div className="glass-panel chart-container" style={{ padding: "16px", overflow: "hidden" }}>
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  color: "var(--text-secondary)",
+                  marginBottom: "8px",
+                }}
+              >
+                Implied Probability History
+              </h3>
+              <div
+                className="glass-panel chart-container"
+                style={{ padding: "16px", overflow: "hidden" }}
+              >
                 {/* Custom SVG Line Chart */}
-                <svg width="100%" height="100%" viewBox="0 0 500 120" preserveAspectRatio="none">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 500 120"
+                  preserveAspectRatio="none"
+                >
                   <defs>
                     <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--yes-color)" stopOpacity="0.3"/>
-                      <stop offset="100%" stopColor="var(--yes-color)" stopOpacity="0.0"/>
+                      <stop
+                        offset="0%"
+                        stopColor="var(--yes-color)"
+                        stopOpacity="0.3"
+                      />
+                      <stop
+                        offset="100%"
+                        stopColor="var(--yes-color)"
+                        stopOpacity="0.0"
+                      />
                     </linearGradient>
                   </defs>
-                  
+
                   {/* Grid Lines */}
-                  <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                  <line x1="0" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                  <line x1="0" y1="90" x2="500" y2="90" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                  
+                  <line
+                    x1="0"
+                    y1="30"
+                    x2="500"
+                    y2="30"
+                    stroke="rgba(255,255,255,0.03)"
+                    strokeWidth="1"
+                  />
+                  <line
+                    x1="0"
+                    y1="60"
+                    x2="500"
+                    y2="60"
+                    stroke="rgba(255,255,255,0.03)"
+                    strokeWidth="1"
+                  />
+                  <line
+                    x1="0"
+                    y1="90"
+                    x2="500"
+                    y2="90"
+                    stroke="rgba(255,255,255,0.03)"
+                    strokeWidth="1"
+                  />
+
                   {/* Dynamic path */}
                   <path
                     d={`M 0 90 Q 100 ${120 - impliedYesPrice} 200 70 T 400 ${110 - impliedYesPrice} L 500 ${100 - impliedYesPrice}`}
@@ -1138,111 +1501,200 @@ function App() {
                     strokeWidth="3"
                     style={{ filter: "drop-shadow(0 0 4px var(--yes-glow))" }}
                   />
-                  
+
                   {/* Area fill */}
                   <path
                     d={`M 0 90 Q 100 ${120 - impliedYesPrice} 200 70 T 400 ${110 - impliedYesPrice} L 500 ${100 - impliedYesPrice} L 500 120 L 0 120 Z`}
                     fill="url(#chartGlow)"
                   />
-                  
+
                   {/* Active dot */}
-                  <circle cx="500" cy={100 - impliedYesPrice} r="5" fill="var(--yes-color)" />
+                  <circle
+                    cx="500"
+                    cy={100 - impliedYesPrice}
+                    r="5"
+                    fill="var(--yes-color)"
+                  />
                 </svg>
               </div>
 
               {/* Orderbook Visualizer */}
-              <h3 style={{ fontSize: "1rem", color: "var(--text-secondary)", marginTop: "24px" }}>Orderbooks</h3>
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  color: "var(--text-secondary)",
+                  marginTop: "24px",
+                }}
+              >
+                Orderbooks
+              </h3>
               <div className="orderbook-grid">
-                
                 {/* YES Orderbook */}
                 <div className="orderbook-side">
-                  <div className="orderbook-title" style={{ color: "var(--yes-color)" }}>YES Orderbook</div>
+                  <div
+                    className="orderbook-title"
+                    style={{ color: "var(--yes-color)" }}
+                  >
+                    YES Orderbook
+                  </div>
                   <div className="orderbook-header">
                     <span>Price</span>
                     <span style={{ textAlign: "right" }}>Shares (Qty)</span>
                   </div>
-                  
+
                   {/* Asks (Sell offers) - Reddish text */}
-                  {yesAsks.slice(0, 4).reverse().map((ask, i) => (
-                    <div key={`yask-${i}`} className="orderbook-row" style={{ opacity: 0.75 }}>
-                      <span style={{ color: "var(--no-color)" }}>{ask.price}¢ (Ask)</span>
-                      <span style={{ textAlign: "right" }}>{ask.qty}</span>
-                    </div>
-                  ))}
-                  
+                  {yesAsks
+                    .slice(0, 4)
+                    .reverse()
+                    .map((ask, i) => (
+                      <div
+                        key={`yask-${i}`}
+                        className="orderbook-row"
+                        style={{ opacity: 0.75 }}
+                      >
+                        <span style={{ color: "var(--no-color)" }}>
+                          {ask.price}¢ (Ask)
+                        </span>
+                        <span style={{ textAlign: "right" }}>{ask.qty}</span>
+                      </div>
+                    ))}
+
                   {/* Spread indicator */}
-                  <div style={{ textAlign: "center", fontSize: "0.75rem", margin: "6px 0", color: "var(--text-muted)", borderBlock: "1px solid rgba(255,255,255,0.03)", padding: "2px" }}>
-                    Spread: {yesAsks.length > 0 && yesBids.length > 0 ? `${yesAsks[0].price - yesBids[0].price}¢` : "0¢"}
+                  <div
+                    style={{
+                      textAlign: "center",
+                      fontSize: "0.75rem",
+                      margin: "6px 0",
+                      color: "var(--text-muted)",
+                      borderBlock: "1px solid rgba(255,255,255,0.03)",
+                      padding: "2px",
+                    }}
+                  >
+                    Spread:{" "}
+                    {yesAsks.length > 0 && yesBids.length > 0
+                      ? `${yesAsks[0].price - yesBids[0].price}¢`
+                      : "0¢"}
                   </div>
 
                   {/* Bids (Buy offers) - Greenish text */}
                   {yesBids.slice(0, 4).map((bid, i) => (
                     <div key={`ybid-${i}`} className="orderbook-row">
-                      <span style={{ color: "var(--yes-color)" }}>{bid.price}¢ (Bid)</span>
+                      <span style={{ color: "var(--yes-color)" }}>
+                        {bid.price}¢ (Bid)
+                      </span>
                       <span style={{ textAlign: "right" }}>{bid.qty}</span>
                     </div>
                   ))}
 
                   {yesAsks.length === 0 && yesBids.length === 0 && (
-                    <div className="no-data" style={{ padding: "10px" }}>Orderbook empty</div>
+                    <div className="no-data" style={{ padding: "10px" }}>
+                      Orderbook empty
+                    </div>
                   )}
                 </div>
 
                 {/* NO Orderbook */}
                 <div className="orderbook-side">
-                  <div className="orderbook-title" style={{ color: "var(--no-color)" }}>NO Orderbook</div>
+                  <div
+                    className="orderbook-title"
+                    style={{ color: "var(--no-color)" }}
+                  >
+                    NO Orderbook
+                  </div>
                   <div className="orderbook-header">
                     <span>Price</span>
                     <span style={{ textAlign: "right" }}>Shares (Qty)</span>
                   </div>
 
                   {/* Asks (Sell offers) */}
-                  {noAsks.slice(0, 4).reverse().map((ask, i) => (
-                    <div key={`nask-${i}`} className="orderbook-row" style={{ opacity: 0.75 }}>
-                      <span style={{ color: "var(--yes-color)" }}>{ask.price}¢ (Ask)</span>
-                      <span style={{ textAlign: "right" }}>{ask.qty}</span>
-                    </div>
-                  ))}
+                  {noAsks
+                    .slice(0, 4)
+                    .reverse()
+                    .map((ask, i) => (
+                      <div
+                        key={`nask-${i}`}
+                        className="orderbook-row"
+                        style={{ opacity: 0.75 }}
+                      >
+                        <span style={{ color: "var(--yes-color)" }}>
+                          {ask.price}¢ (Ask)
+                        </span>
+                        <span style={{ textAlign: "right" }}>{ask.qty}</span>
+                      </div>
+                    ))}
 
                   {/* Spread indicator */}
-                  <div style={{ textAlign: "center", fontSize: "0.75rem", margin: "6px 0", color: "var(--text-muted)", borderBlock: "1px solid rgba(255,255,255,0.03)", padding: "2px" }}>
-                    Spread: {noAsks.length > 0 && noBids.length > 0 ? `${noAsks[0].price - noBids[0].price}¢` : "0¢"}
+                  <div
+                    style={{
+                      textAlign: "center",
+                      fontSize: "0.75rem",
+                      margin: "6px 0",
+                      color: "var(--text-muted)",
+                      borderBlock: "1px solid rgba(255,255,255,0.03)",
+                      padding: "2px",
+                    }}
+                  >
+                    Spread:{" "}
+                    {noAsks.length > 0 && noBids.length > 0
+                      ? `${noAsks[0].price - noBids[0].price}¢`
+                      : "0¢"}
                   </div>
 
                   {/* Bids (Buy offers) */}
                   {noBids.slice(0, 4).map((bid, i) => (
                     <div key={`nbid-${i}`} className="orderbook-row">
-                      <span style={{ color: "var(--no-color)" }}>{bid.price}¢ (Bid)</span>
+                      <span style={{ color: "var(--no-color)" }}>
+                        {bid.price}¢ (Bid)
+                      </span>
                       <span style={{ textAlign: "right" }}>{bid.qty}</span>
                     </div>
                   ))}
 
                   {noAsks.length === 0 && noBids.length === 0 && (
-                    <div className="no-data" style={{ padding: "10px" }}>Orderbook empty</div>
+                    <div className="no-data" style={{ padding: "10px" }}>
+                      Orderbook empty
+                    </div>
                   )}
                 </div>
-
               </div>
-
             </div>
           )}
-
         </div>
 
         {/* Right column */}
         <div className="right-column">
-          
           {/* Wallet Balance widget */}
           <div className="glass-panel wallet-card">
             <div className="balance-title">USD Balance</div>
             <div className="balance-amount">{formatUSD(usdBalance)}</div>
             <div className="wallet-address">
-              <span>{userAddress.substring(0, 6)}...{userAddress.substring(userAddress.length - 6)}</span>
-              <span className="wallet-address-copy" onClick={handleCopyAddress}>Copy</span>
+              <span>
+                {userAddress.substring(0, 6)}...
+                {userAddress.substring(userAddress.length - 6)}
+              </span>
+              <span className="wallet-address-copy" onClick={handleCopyAddress}>
+                Copy
+              </span>
             </div>
             <div className="wallet-actions">
-              <button className="btn-primary" onClick={() => { setRampAmount("100"); setShowRampModal("onramp"); }}>Deposit</button>
-              <button className="btn-secondary" onClick={() => { setRampAmount("100"); setShowRampModal("offramp"); }}>Withdraw</button>
+              <button
+                className="btn-primary"
+                onClick={() => {
+                  setRampAmount("100");
+                  setShowRampModal("onramp");
+                }}
+              >
+                Deposit
+              </button>
+              <button
+                className="btn-secondary"
+                onClick={() => {
+                  setRampAmount("100");
+                  setShowRampModal("offramp");
+                }}
+              >
+                Withdraw
+              </button>
             </div>
           </div>
 
@@ -1253,7 +1705,7 @@ function App() {
                 {(["buy", "sell", "split", "merge"] as const).map((tab) => (
                   <button
                     key={tab}
-                    className={`trade-widget-tab-btn ${tradeTab === tab ? 'active' : ''}`}
+                    className={`trade-widget-tab-btn ${tradeTab === tab ? "active" : ""}`}
                     onClick={() => setTradeTab(tab)}
                   >
                     {tab.toUpperCase()}
@@ -1266,13 +1718,13 @@ function App() {
                 <div>
                   <div className="outcome-selector">
                     <button
-                      className={`outcome-btn outcome-btn-yes ${outcomeSide === 'yes' ? 'selected' : ''}`}
+                      className={`outcome-btn outcome-btn-yes ${outcomeSide === "yes" ? "selected" : ""}`}
                       onClick={() => setOutcomeSide("yes")}
                     >
                       YES
                     </button>
                     <button
-                      className={`outcome-btn outcome-btn-no ${outcomeSide === 'no' ? 'selected' : ''}`}
+                      className={`outcome-btn outcome-btn-no ${outcomeSide === "no" ? "selected" : ""}`}
                       onClick={() => setOutcomeSide("no")}
                     >
                       NO
@@ -1291,7 +1743,11 @@ function App() {
                         max="99"
                         className="form-input"
                         value={orderPrice}
-                        onChange={(e) => setOrderPrice(Math.min(99, Math.max(1, Number(e.target.value))))}
+                        onChange={(e) =>
+                          setOrderPrice(
+                            Math.min(99, Math.max(1, Number(e.target.value))),
+                          )
+                        }
                       />
                       <span className="form-suffix">¢</span>
                     </div>
@@ -1315,7 +1771,9 @@ function App() {
                         min="1"
                         className="form-input"
                         value={orderQty}
-                        onChange={(e) => setOrderQty(Math.max(1, Number(e.target.value)))}
+                        onChange={(e) =>
+                          setOrderQty(Math.max(1, Number(e.target.value)))
+                        }
                       />
                       <span className="form-suffix">Shares</span>
                     </div>
@@ -1331,7 +1789,9 @@ function App() {
                       <span>{formatUSD(orderQty * 100)}</span>
                     </div>
                     <div className="summary-row summary-row-bold">
-                      <span>Total {tradeTab === "buy" ? "Cost" : "Proceeds"}</span>
+                      <span>
+                        Total {tradeTab === "buy" ? "Cost" : "Proceeds"}
+                      </span>
                       <span>{formatUSD(orderQty * orderPrice)}</span>
                     </div>
                   </div>
@@ -1349,11 +1809,17 @@ function App() {
               {/* SPLIT / MERGE outcomes */}
               {(tradeTab === "split" || tradeTab === "merge") && (
                 <div>
-                  <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "16px", lineHeight: "1.4" }}>
-                    {tradeTab === "split" 
+                  <div
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "var(--text-secondary)",
+                      marginBottom: "16px",
+                      lineHeight: "1.4",
+                    }}
+                  >
+                    {tradeTab === "split"
                       ? "Split allows you to convert USD cash directly into matching pairs of YES and NO shares. $1.00 USD gives you 100 YES shares and 100 NO shares."
-                      : "Merge allows you to burn equal quantities of YES and NO shares to reclaim USD cash. 100 YES and 100 NO shares returns $1.00 USD."
-                    }
+                      : "Merge allows you to burn equal quantities of YES and NO shares to reclaim USD cash. 100 YES and 100 NO shares returns $1.00 USD."}
                   </div>
 
                   <div className="form-group">
@@ -1367,7 +1833,11 @@ function App() {
                         min="1"
                         className="form-input"
                         value={splitMergeAmount}
-                        onChange={(e) => setSplitMergeAmount(Math.max(1, Number(e.target.value)))}
+                        onChange={(e) =>
+                          setSplitMergeAmount(
+                            Math.max(1, Number(e.target.value)),
+                          )
+                        }
                       />
                       <span className="form-suffix">¢</span>
                     </div>
@@ -1382,19 +1852,22 @@ function App() {
                   </button>
                 </div>
               )}
-
             </div>
           )}
-
         </div>
       </div>
 
       {/* Footer Tables (Holdings & History) */}
-      <div className="glass-panel portfolio-card" style={{ marginBottom: "24px" }}>
+      <div
+        className="glass-panel portfolio-card"
+        style={{ marginBottom: "24px" }}
+      >
         <h2 className="section-title">Your Holdings</h2>
-        
+
         {positionsList.length === 0 ? (
-          <div className="no-data">You do not hold any YES/NO positions currently</div>
+          <div className="no-data">
+            You do not hold any YES/NO positions currently
+          </div>
         ) : (
           <table className="positions-table">
             <thead>
@@ -1407,17 +1880,28 @@ function App() {
             </thead>
             <tbody>
               {positionsList.map((pos) => {
-                const market = marketsList.find(m => m.id === pos.marketId);
+                const market = marketsList.find((m) => m.id === pos.marketId);
                 return (
                   <tr key={pos.id}>
-                    <td style={{ fontWeight: 600 }}>{market ? market.title : pos.marketId}</td>
+                    <td style={{ fontWeight: 600 }}>
+                      {market ? market.title : pos.marketId}
+                    </td>
                     <td>
-                      <span className={`badge ${pos.type === 'Yes' ? 'badge-yes' : 'badge-no'}`}>
+                      <span
+                        className={`badge ${pos.type === "Yes" ? "badge-yes" : "badge-no"}`}
+                      >
                         {pos.type}
                       </span>
                     </td>
-                    <td style={{ fontFamily: "var(--mono-font)" }}>{pos.qty}</td>
-                    <td style={{ fontFamily: "var(--mono-font)", fontWeight: 600 }}>
+                    <td style={{ fontFamily: "var(--mono-font)" }}>
+                      {pos.qty}
+                    </td>
+                    <td
+                      style={{
+                        fontFamily: "var(--mono-font)",
+                        fontWeight: 600,
+                      }}
+                    >
                       {formatUSD(pos.qty)}
                     </td>
                   </tr>
@@ -1436,24 +1920,42 @@ function App() {
             <div className="no-data">No history items found</div>
           ) : (
             historyList.map((item) => (
-              <div key={item.id} className={`history-item ${item.orderType.toLowerCase()}`}>
+              <div
+                key={item.id}
+                className={`history-item ${item.orderType.toLowerCase()}`}
+              >
                 <div className="history-left">
                   <span className="history-title">
-                    {item.orderType.toUpperCase()} - {item.marketTitle || item.marketId}
+                    {item.orderType.toUpperCase()} -{" "}
+                    {item.marketTitle || item.marketId}
                   </span>
                   <span className="history-time">
-                    {item.createdAt ? new Date(item.createdAt).toLocaleTimeString() : new Date().toLocaleTimeString()}
+                    {item.createdAt
+                      ? new Date(item.createdAt).toLocaleTimeString()
+                      : new Date().toLocaleTimeString()}
                   </span>
                 </div>
                 <div className="history-right">
-                  {item.orderType === "Onramp" || item.orderType === "Offramp" ? (
-                    <span style={{ color: item.orderType === "Onramp" ? "var(--yes-color)" : "var(--no-color)" }}>
-                      {item.orderType === "Onramp" ? "+" : "-"}{formatUSD(item.qty)}
+                  {item.orderType === "Onramp" ||
+                  item.orderType === "Offramp" ? (
+                    <span
+                      style={{
+                        color:
+                          item.orderType === "Onramp"
+                            ? "var(--yes-color)"
+                            : "var(--no-color)",
+                      }}
+                    >
+                      {item.orderType === "Onramp" ? "+" : "-"}
+                      {formatUSD(item.qty)}
                     </span>
-                  ) : item.orderType === "Split" || item.orderType === "Merge" ? (
+                  ) : item.orderType === "Split" ||
+                    item.orderType === "Merge" ? (
                     <span>{formatUSD(item.qty)}</span>
                   ) : (
-                    <span>{item.qty} shares @ {item.price}¢</span>
+                    <span>
+                      {item.qty} shares @ {item.price}¢
+                    </span>
                   )}
                 </div>
               </div>
@@ -1468,11 +1970,18 @@ function App() {
           <div className="glass-panel modal-content">
             <div className="modal-header">
               <h2 style={{ fontSize: "1.2rem" }}>
-                {showRampModal === "onramp" ? "Deposit USD (Deposit)" : "Withdraw USD (Withdraw)"}
+                {showRampModal === "onramp"
+                  ? "Deposit USD (Deposit)"
+                  : "Withdraw USD (Withdraw)"}
               </h2>
-              <button className="modal-close" onClick={() => setShowRampModal(null)}>&times;</button>
+              <button
+                className="modal-close"
+                onClick={() => setShowRampModal(null)}
+              >
+                &times;
+              </button>
             </div>
-            
+
             <form onSubmit={handleRampSubmit}>
               <div className="form-group">
                 <div className="form-label">Amount (in USD)</div>
@@ -1504,11 +2013,24 @@ function App() {
 
       {/* Create Market Modal */}
       {showCreateMarket && (
-        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowCreateMarket(false); }}>
-          <div className="glass-panel modal-content" style={{ maxWidth: "520px", width: "90%" }}>
+        <div
+          className="modal-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowCreateMarket(false);
+          }}
+        >
+          <div
+            className="glass-panel modal-content"
+            style={{ maxWidth: "520px", width: "90%" }}
+          >
             <div className="modal-header">
               <h2 style={{ fontSize: "1.2rem" }}>＋ Create New Market</h2>
-              <button className="modal-close" onClick={() => setShowCreateMarket(false)}>&times;</button>
+              <button
+                className="modal-close"
+                onClick={() => setShowCreateMarket(false)}
+              >
+                &times;
+              </button>
             </div>
 
             <form onSubmit={handleCreateMarket}>
@@ -1527,7 +2049,13 @@ function App() {
                     style={{ paddingRight: "12px" }}
                   />
                 </div>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", textAlign: "right" }}>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--text-muted)",
+                    textAlign: "right",
+                  }}
+                >
                   {newMarketTitle.length}/200
                 </div>
               </div>
@@ -1551,7 +2079,13 @@ function App() {
                     boxSizing: "border-box",
                   }}
                 />
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", textAlign: "right" }}>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--text-muted)",
+                    textAlign: "right",
+                  }}
+                >
                   {newMarketDesc.length}/1000
                 </div>
               </div>
