@@ -142,11 +142,10 @@ function App() {
   useEffect(() => {
     const checkBackend = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/markets", { timeout: 1500 });
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/markets`, { timeout: 1500 });
         if (response.data && response.data.markets) {
           setBackendAvailable(true);
-          // Default to live backend mode if it's available
-          
+          setDemoMode(false);
         }
       } catch (e) {
         setBackendAvailable(false);
@@ -164,7 +163,7 @@ function App() {
     if (!demoMode && backendAvailable) {
       try {
         // Fetch markets
-        const marketsRes = await axios.get("http://localhost:3000/markets");
+        const marketsRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/markets`);
         setMarketsList(marketsRes.data.markets);
         if (marketsRes.data.markets.length > 0 && !selectedMarketId) {
           setSelectedMarketId(marketsRes.data.markets[0].id);
@@ -175,14 +174,14 @@ function App() {
         const token = sessionRes.data.session?.access_token;
         if (token) {
           const authHeaders = { headers: { Authorization: `Bearer ${token}` } };
-          const balanceRes = await axios.get("http://localhost:3000/balance", authHeaders);
+          const balanceRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/balance`, authHeaders);
           setUsdBalance(balanceRes.data.balance || 0);
 
-          const positionsRes = await axios.get("http://localhost:3000/positions", authHeaders);
+          const positionsRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/positions`, authHeaders);
           setPositionsList(positionsRes.data.positions || []);
 
           // GET /history — read operation, not POST
-          const historyRes = await axios.get("http://localhost:3000/history", authHeaders);
+          const historyRes = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/history`, authHeaders);
           setHistoryList(historyRes.data.history || []);
         } else {
           setUsdBalance(0);
@@ -341,7 +340,7 @@ function App() {
       const token = sessionRes.data.session?.access_token;
       if (token) {
         await axios.post(
-          "http://localhost:3000/user/register",
+          `${import.meta.env.VITE_BACKEND_URL}/user/register`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         ).catch(() => {}); // Ignore errors — user may already exist
@@ -376,7 +375,7 @@ function App() {
 
         const endpoint = showRampModal === "onramp" ? "onramp" : "offramp";
         await axios.post(
-          `http://localhost:3000/${endpoint}`,
+          `${import.meta.env.VITE_BACKEND_URL}/${endpoint}`,
           { amount },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -441,7 +440,7 @@ function App() {
         }
 
         await axios.post(
-          "http://localhost:3000/split",
+          `${import.meta.env.VITE_BACKEND_URL}/split`,
           { marketId: activeMarket.id, amount },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -526,7 +525,7 @@ function App() {
         }
 
         await axios.post(
-          "http://localhost:3000/merge",
+          `${import.meta.env.VITE_BACKEND_URL}/merge`,
           { marketId: activeMarket.id, amount },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -608,7 +607,7 @@ function App() {
         }
 
         await axios.post(
-          "http://localhost:3000/order",
+          `${import.meta.env.VITE_BACKEND_URL}/order`,
           {
             marketId: activeMarket.id,
             side: outcomeSide,
@@ -911,7 +910,7 @@ function App() {
           return;
         }
         const res = await axios.post(
-          "http://localhost:3000/markets",
+          `${import.meta.env.VITE_BACKEND_URL}/markets`,
           {
             title: newMarketTitle,
             description: newMarketDesc,
