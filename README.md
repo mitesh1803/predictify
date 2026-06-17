@@ -50,7 +50,7 @@ graph TD
 | Database | PostgreSQL via Drizzle ORM |
 | Auth | Supabase (Web3 wallet-based) |
 | Monorepo | Turborepo + Bun workspaces |
-| Deployment | Railway (Nixpacks) |
+| Deployment | Backen: Railway (Nixpacks), Frontend: Vercel |
  
 ---
  
